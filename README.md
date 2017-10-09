@@ -23,6 +23,7 @@ When you struggle to understand a notion, I suggest you look for answers on the 
 - [You don't know JS (book)](https://github.com/getify/You-Dont-Know-JS)
 - [ES6 Features with examples](http://es6-features.org)
 - [WesBos blog (ES6)](http://wesbos.com/category/es6/)
+- [Javascript Basics for Beginners](https://www.udacity.com/course/javascript-basics--ud804) - a free Udacity course
 - [Reddit (JavaScript)](https://www.reddit.com/r/javascript/)
 - [Google](https://www.google.com/) to find specific blog and resources
 - [StackOverflow](https://stackoverflow.com/questions/tagged/javascript)
@@ -57,11 +58,11 @@ When you struggle to understand a notion, I suggest you look for answers on the 
         * [Array.prototype.map()](#arrayprototypemap)
         * [Array.prototype.filter()](#arrayprototypefilter)
         * [Array.prototype.reduce()](#arrayprototypereduce)
-      - [External Resource](#external-resource)
+      - [External Resource](#external-resource-2)
     + [Spread operator "..."](#spread-operator-)
       - [Sample code](#sample-code-3)
       - [Explanation](#explanation-1)
-        * [In iterables (like array)](#in-iterables-like-array)
+        * [In iterables (like arrays)](#in-iterables-like-arrays)
         * [Function rest parameter](#function-rest-parameter)
         * [Object properties spreading](#object-properties-spreading)
       - [External resources](#external-resources)
@@ -73,24 +74,35 @@ When you struggle to understand a notion, I suggest you look for answers on the 
       - [Explanation](#explanation-3)
         * [Create the promise](#create-the-promise)
         * [Promise handlers usage](#promise-handlers-usage)
-      - [External Resources](#external-resources)
+      - [External Resources](#external-resources-2)
     + [Template literals](#template-literals)
       - [Sample code](#sample-code-5)
-      - [External resources](#external-resources-2)
+      - [External resources](#external-resources-3)
+    + [Tagged Template Literals](#tagged-template-literals)
+      - [External resources](#external-resources-4)
     + [Imports / Exports](#imports--exports)
       - [Explanation with sample code](#explanation-with-sample-code-1)
         * [Named exports](#named-exports)
         * [Default import / export](#default-import--export)
-      - [External resources](#external-resources-3)
+      - [External resources](#external-resources-5)
     + [JavaScript *this*](#-javascript-this)
-      - [External resources](#external-resources-4)
+      - [External resources](#external-resources-6)
     + [Class](#class)
       - [Samples](#samples)
-      - [External resources](#external-resources-5)
+      - [External resources](#external-resources-7)
     + [Async Await](#async-await)
       - [Sample code](#sample-code-6)
       - [Explanation with sample code](#explanation-with-sample-code-2)
-      - [External resources](#external-resources-6)
+      - [Error handling](#error-handling)
+      - [External resources](#external-resources-8)
+    + [Truthy / Falsy](#truthy--falsy)
+    + [Static Methods](#static-methods)
+      - [Short Explanation](#short-explanation-1)
+      - [Sample Code](#sample-code-7)
+      - [Detailed Explanation](#detailed-explanation-2)
+        * [Calling other static methods from a static method](#calling-other-static-methods-from-a-static-method)
+        * [Calling static methods from non-static methods](#calling-static-methods-from-non-static-methods)
+      - [External resources](#external-resources-9)
   * [Glossary](#glossary)
     + [Scope](#-scope)
     + [Variable mutation](#-variable-mutation)
@@ -355,14 +367,14 @@ To do an implicit return, the code must be written in a one-line sentence.
 Since there only is a return value here, we can do an implicit return.
 
 ```js
- const double = (x) => x * 2;
+  const double = (x) => x * 2;
 ```
 
 To do so, we only need to **remove the brackets** and the **return** keyword. That's why it's called an *implicit* return, the *return* keyword is not there, but this function will indeed return ```x * 2```.
 
 > **Note:** If your function does not return a value (with *side effects*), it doesn't do an explicit nor an implicit return.
 
-Besides, if you want to implicitly return an *object* you **must have parenthesis around it** since it will conflict with the block braces:
+Besides, if you want to implicitly return an *object* you **must have parentheses around it** since it will conflict with the block braces:
 
 ```js
 const getPerson = () => ({ name: "Nick", age: 24 })
@@ -371,16 +383,16 @@ console.log(getPerson()) // { name: "Nick", age: 24 } -- object implicitly retur
 
 - Only one argument
 
-If your function only takes one parameter, you can omit the parenthesis around it. If we take back the above *double* code:
+If your function only takes one parameter, you can omit the parentheses around it. If we take back the above *double* code:
 
 ```js
- const double = (x) => x * 2; // this arrow function only takes one parameter
+  const double = (x) => x * 2; // this arrow function only takes one parameter
 ```
 
-Parenthesis around the parameter can be avoided:
+Parentheses around the parameter can be avoided:
 
 ```js
- const double = x => x * 2; // this arrow function only takes one parameter
+  const double = x => x * 2; // this arrow function only takes one parameter
 ```
 
 - No arguments
@@ -388,14 +400,14 @@ Parenthesis around the parameter can be avoided:
 When there is no argument provided to an arrow function, you need to provide parentheses, or it won't be valid syntax.
 
 ```js
-  () => { // parenthesis are provided, everything is fine
+  () => { // parentheses are provided, everything is fine
     const x = 2;
     return x;
   }
 ```
 
 ```js
-  => { // No parenthesis, this won't work!
+  => { // No parentheses, this won't work!
     const x = 2;
     return x;
   }
@@ -555,7 +567,7 @@ joinFirstLastName(person); // "Nick-Anderson"
 
 - Array
 
-Lets consider the following array:
+Let's consider the following array:
 
 ```js
 const myArray = ["a", "b", "c"];
@@ -643,7 +655,7 @@ console.log(doubledNumbers); // [0, 2, 4, 6, 8, 10, 12]
 
 What's happening here? We are using .map on the *numbers* array, the map is iterating on each element of the array and passes it to our function. The goal of the function is to produce and return a new value from the one passed so that map can replace it.
 
-Lets extract this function to make it more clear, just for this once:
+Let's extract this function to make it more clear, just for this once:
 
 ```js
 const doubleN = function(n) { return n * 2; };
@@ -707,7 +719,7 @@ Function returns *acc* + *n* --> 0 + 0 --> 0
 
 ###### At second iteration step
 
-```acc = 0``` because its the value the function returned at the previous iteration step
+```acc = 0``` because it's the value the function returned at the previous iteration step
 
 ```n = 1``` second element of the *number* array
 
@@ -715,7 +727,7 @@ Function returns *acc* + *n* --> 0 + 1 --> 1
 
 ###### At third iteration step
 
-```acc = 1``` because its the value the function returned at the previous iteration step
+```acc = 1``` because it's the value the function returned at the previous iteration step
 
 ```n = 2``` third element of the *number* array
 
@@ -1025,6 +1037,48 @@ const name = "Nick";
 - [String interpolation - ES6 Features](http://es6-features.org/#StringInterpolation)
 - [ES6 Template Strings - Addy Osmani](https://developers.google.com/web/updates/2015/01/ES6-Template-Strings)
 
+### Tagged template literals
+
+Template tags are *functions that can be prefixed to a [template literal](#template-literals)*. When a function is called this way, the first parameter is an array of the *strings* that appear between the template's interpolated variables, and the subsequent parameters are the interpolated values. Use a spread operator `...` to capture all of them. [(Ref: MDN)](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals#Tagged_template_literals).
+
+> **Note :** A famous library named [styled-components](https://www.styled-components.com/) heavily relies on this feature.
+
+Below is a toy example on they work.
+```js
+function highlight(strings, ...values) {
+  const interpolation = strings.reduce((prev, current) => {
+    return prev + current + (values.length ? "<mark>" + values.shift() + "</mark>" : "");
+  }, "");
+
+  return interpolation;
+}
+
+const condiment = "jam";
+const meal = "toast";
+
+highlight`I like ${condiment} on ${meal}.`;
+// "I like <mark>jam</mark> on <mark>toast</mark>."
+```
+
+A more interesting example: 
+```js
+function comma(strings, ...values) {
+  return strings.reduce((prev, next) => {
+    let value = values.shift() || [];
+    value = value.join(", ");
+    return prev + next + value;
+  }, "");
+}
+
+const snacks = ['apples', 'bananas', 'cherries'];
+comma`I like ${snacks} to snack on.`;
+// "I like apples, bananas, cherries to snack on."
+```
+
+#### External resources
+- [Wes Bos on Tagged Template Literals](http://wesbos.com/tagged-template-literals/)
+- [Library of common template tags](https://github.com/declandewet/common-tags)
+
 ### Imports / Exports
 
 ES6 modules are used to access variables or functions in a module explicitly exported by the modules it imports.
@@ -1035,7 +1089,9 @@ I highly recommend to take a look at MDN resources on import/export (see externa
 
 ##### Named exports
 
-Named exports are used to export several values from a module. You can only name-export variables (not functions or class), so if you want to name-export a function, you have to store it in a variable before.
+Named exports are used to export several values from a module.
+
+> **Note :** You can only name-export [first-class citizens](https://en.wikipedia.org/wiki/First-class_citizen) that have a name.
 
 ```js
 // mathConstants.js
@@ -1211,9 +1267,9 @@ For classes understanding:
 
 In addition to [Promises](#promises), there is a new syntax you might encounter to handle asynchronous code named *async / await*.
 
-The purpose of async/await functions is to simplify the behavior of using promises synchronously and to perform some behavior on a group of Promises. Just as Promises are similar to structured callbacks, async/await is similar to combining generators and promises. ([Ref: MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function))
+The purpose of async/await functions is to simplify the behavior of using promises synchronously and to perform some behavior on a group of Promises. Just as Promises are similar to structured callbacks, async/await is similar to combining generators and promises. Async functions *always* returns a Promise. ([Ref: MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function))
 
-> **Note :** You must understand what are promises and how they work before trying to understand async / await since they rely on it.
+> **Note :** You must understand what promises are and how they work before trying to understand async / await since they rely on it.
 
 > **Note 2:** [*await* must be used in an *async* function](https://hackernoon.com/6-reasons-why-javascripts-async-await-blows-promises-away-tutorial-c7ec10518dd9#f3f0), which means that you can't use await in the top level of our code since that is not inside an async function.
 
@@ -1221,54 +1277,41 @@ The purpose of async/await functions is to simplify the behavior of using promis
 
 ```js
 async function getGithubUser(username) { // async keyword allows usage of await in the function and means function returns a promise
-  try { // this is how errors are handled with async / await
-    const response = await fetch(`https://api.github.com/users/${username}`); // "synchronously" waiting fetch promise to resolve before going to next line
-    return response.json();
-  } catch (err) {
-    alert(err);
-  }
+  const response = await fetch(`https://api.github.com/users/${username}`); // Execution is paused here until the Promise returned by fetch is resolved
+  return response.json();
 }
 
-getGithubUser('mbeaudru').then(user => console.log(user)); // logging user response - cannot use await syntax since this code isn't in async function
+getGithubUser('mbeaudru')
+  .then(user => console.log(user)) // logging user response - cannot use await syntax since this code isn't in async function
+  .catch(err => console.log(err)); // if an error is thrown in our async function, we will catch it here
 ```
 
 #### Explanation with sample code
 
 *Async / Await* is built on promises but they allow a more imperative style of code.
 
-*async* operator turns a function into a *promise* in which you can use the *await* operator.
+The *async* operator marks a function as asynchronous and will always return a *Promise*. You can use the *await* operator in an *async* function to pause execution on that line until the returned Promise from the expression either resolves or rejects.
 
 ```js
 async function myFunc() {
   // we can use await operator because this function is async
-  try {
-    return "hello world";
-  } catch(e) {
-    throw new Error();
-  }
+  return "hello world";
 }
 
-myFunc().then(msg => console.log(msg)) // "hello world" -- myFunc is turned into a promise because of async operator
+myFunc().then(msg => console.log(msg)) // "hello world" -- myFunc's return value is turned into a promise because of async operator
 ```
 
-When the *return* statement of an async function is reached, the promise is fulfilled with the value returned. If an error is thrown inside an async function, the promise state will turn to *rejected*.
+When the *return* statement of an async function is reached, the Promise is fulfilled with the value returned. If an error is thrown inside an async function, the Promise state will turn to *rejected*. If no value is returned from an async function, a Promise is still returned and resolves with no value when execution of the async function is complete.
 
-*await* operator is used to wait for a *Promise* to be fulfilled and only can be used inside an *async* function body. When encountered, the code execution is paused until the promise is fulfilled.
+*await* operator is used to wait for a *Promise* to be fulfilled and can only be used inside an *async* function body. When encountered, the code execution is paused until the promise is fulfilled.
 
-> **Note :** *fetch* is a Promise that allows to do an AJAX request
+> **Note :** *fetch* is a function that returns a Promise that allows to do an AJAX request
 
 Let's see how we could fetch a github user with promises first:
 
 ```js
 function getGithubUser(username) {
-  return new Promise((resolve, reject) => {
-    fetch(`https://api.github.com/users/${username}`)
-      .then(response => {
-        const user = response.json();
-        resolve(user);
-      })
-      .catch(err => reject(err));
-  })
+  return fetch(`https://api.github.com/users/${username}`).then(response => response.json());
 }
 
 getGithubUser('mbeaudru')
@@ -1280,13 +1323,8 @@ Here's the *async / await* equivalent:
 
 ```js
 async function getGithubUser(username) { // promise + await keyword usage allowed
-  try { // We handle async function errors with try / catch
-    const response = await fetch(`https://api.github.com/users/${username}`); // Execution stops here until fetch promise is fulfilled.
-    const user = response.json();
-    return user; // equivalent of resolving the getGithubUser promise with user value.
-  } catch (err) {
-    throw new Error(err); // equivalent of rejecting getGithubUser promise with err value.
-  }
+  const response = await fetch(`https://api.github.com/users/${username}`); // Execution stops here until fetch promise is fulfilled
+  return response.json();
 }
 
 getGithubUser('mbeaudru')
@@ -1298,18 +1336,16 @@ getGithubUser('mbeaudru')
 
 For instance, if you need to get a token in order to be able to fetch a blog post on a database and then the author informations:
 
+> **Note :** *await* expressions needs to be wrapped in parentheses to call its resolved value's methods and properties on the same line.
+
 ```js
 async function fetchPostById(postId) {
-  try {
-    const token = await fetch('token_url');
-    const post = await fetch(`/posts/${postId}?token=${token}`);
-    const author = await fetch(`/users/${post.authorId}`);
+  const token = (await fetch('token_url')).json().token;
+  const post = (await fetch(`/posts/${postId}?token=${token}`)).json();
+  const author = (await fetch(`/users/${post.authorId}`)).json();
 
-    post.author = author;
-    return post;
-  } catch(e) {
-    throw new Error(e);
-  }
+  post.author = author;
+  return post;
 }
 
 fetchPostById('gzIrzeo64')
@@ -1317,7 +1353,53 @@ fetchPostById('gzIrzeo64')
   .catch(err => console.log(err));
 ```
 
-> **Note :** As you can see, *try / catch* are necessary to handle errors. But if you are making *express routes*, you can use a middleware to avoid error handling and have a very pleasant code to read. See [this article from Alex Bazhenov](https://medium.com/@Abazhenov/using-async-await-in-express-with-node-8-b8af872c0016) to learn more.
+##### Error handling
+
+Unless we add *try / catch* blocks around *await* expressions, uncaught exceptions – regardless of whether they were thrown in the body of your *async* function or while it’s suspended during *await* – will reject the promise returned by the *async* function. Using the `throw` statement in an async function is the same as returning a Promise that rejects. [(Ref: PonyFoo)](https://ponyfoo.com/articles/understanding-javascript-async-await#error-handling).
+
+> **Note :** Promises behave the same!
+
+With promises, here is how you would handle the error chain:
+
+```js
+function getUser() { // This promise will be rejected!
+  return new Promise((res, rej) => rej("User not found !"));
+}
+
+function getAvatarByUsername(userId) {
+  return getUser(userId).then(user => user.avatar);
+}
+
+function getUserAvatar(username) {
+  return getAvatarByUsername(username).then(avatar => ({ username, avatar }));
+}
+
+getUserAvatar('mbeaudru')
+  .then(res => console.log(res))
+  .catch(err => console.log(err)); // "User not found !"
+```
+
+The equivalent with *async / await*:
+
+```js
+async function getUser() { // The returned promise will be rejected!
+  throw "User not found !";
+}
+
+async function getAvatarByUsername(userId) => {
+  const user = await getUser(userId);
+  return user.avatar;
+}
+
+async function getUserAvatar(username) {
+  var avatar = await getAvatarByUsername(username);
+  return { username, avatar };
+}
+
+getUserAvatar('mbeaudru')
+  .then(res => console.log(res))
+  .catch(err => console.log(err)); // "User not found !"
+```
 
 #### External resources
 
@@ -1329,6 +1411,147 @@ fetchPostById('gzIrzeo64')
 - [Async Function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function)
 - [Await](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await)
 - [Using async / await in express with node 8](https://medium.com/@Abazhenov/using-async-await-in-express-with-node-8-b8af872c0016)
+
+### Truthy / Falsy
+
+In JavaScript, a truthy or falsy value is a value that is being casted into a boolean when evaluated in a boolean context. An example of boolean context would be the evaluation of an ```if``` condition:
+
+Every value will be casted to ```true``` unless they are equal to:
+
+- false
+- 0
+- "" (empty string)
+- null
+- undefined
+- NaN
+
+Here are examples of *boolean context*:
+
+- ```if``` condition evaluation
+
+```js
+if (myVar) {}
+```
+
+```myVar``` can be any [first-class citizen](https://en.wikipedia.org/wiki/First-class_citizen) (variable, function, boolean) but it will be casted into a boolean because it's evaluated in a boolean context.
+
+- After logical **NOT** ```!``` operator
+
+This operator returns false if its single operand can be converted to true; otherwise, returns true.
+
+```js
+!0 // true -- 0 is falsy so it returns true
+!!0 // false -- 0 is falsy so !0 returns true so !(!0) returns false
+!!"" // false -- empty string is falsy so NOT (NOT false) equals false
+```
+
+- With the *Boolean* object constructor
+
+```js
+new Boolean(0) // false
+new Boolean(1) // true
+```
+
+- In a ternary evaluation
+
+```js
+myVar ? "truthy" : "falsy"
+```
+
+myVar is evaluated in a boolean context.
+
+### Static Methods
+
+#### Short explanation
+
+The `static` keyword is used in classes to declare static methods. Static methods are functions in a class that belongs to the class object and are not available to any instance of that class.
+
+#### Sample code
+
+```js
+class Repo{
+  static getName() {
+    return "Repo name is modern-js-cheatsheet"
+  }
+}
+
+//Note that we did not have to create an instance of the Repo class
+console.log(Repo.getName()) //Repo name is modern-js-cheatsheet
+
+let r = new Repo();
+console.log(r.getName()) //Uncaught TypeError: repo.getName is not a function
+```
+
+#### Detailed explanation
+
+Static methods can be called within another static method by using the `this` keyword, this doesn't work for non-static methods though. Non-static methods cannot directly access static methods using the `this` keyword.
+
+##### Calling other static methods from a static method.
+
+To call a static method from another static method, the `this` keyword can be used like so;
+
+```js
+class Repo{
+  static getName() {
+    return "Repo name is modern-js-cheatsheet"
+  }
+
+  static modifyName(){
+    return this.getName() + '-added-this'
+  }
+}
+
+console.log(Repo.modifyName()) //Repo name is modern-js-cheatsheet-added-this
+```
+
+##### Calling static methods from non-static methods.
+
+Non-static methods can call static methods in 2 ways;
+1. ###### Using the class name.
+
+To get access to a static method from a non-static method we use the class name and call the static method like a property. e.g `ClassName.StaticMethodName`
+
+```js
+class Repo{
+  static getName() {
+    return "Repo name is modern-js-cheatsheet"
+  }
+
+  useName(){
+    return Repo.getName() + ' and it contains some really important stuff'
+  }
+}
+
+// we need to instantiate the class to use non-static methods
+let r = new Repo()
+console.log(r.useName()) //Repo name is modern-js-cheatsheet and it contains some really important stuff
+```
+
+2. ###### Using the constructor
+
+Static methods can be called as properties on the constructor object.
+
+```js
+class Repo{
+  static getName() {
+    return "Repo name is modern-js-cheatsheet"
+  }
+
+  useName(){
+    //Calls the static method as a property of the constructor
+    return this.constructor.getName() + ' and it contains some really important stuff'
+  }
+}
+
+// we need to instantiate the class to use non-static methods
+let r = new Repo()
+console.log(r.useName()) //Repo name is modern-js-cheatsheet and it contains some really important stuff
+```
+
+#### External resources
+- [static keyword- MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/static)
+- [Static Methods- Javascript.info](https://javascript.info/class#static-methods)
+- [Static Members in ES6- OdeToCode](http://odetocode.com/blogs/scott/archive/2015/02/02/static-members-in-es6.aspx)
 
 ## Glossary
 
